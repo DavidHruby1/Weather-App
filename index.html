@@ -19,15 +19,27 @@
 </head>
 <body>
     <div class="search-wrapper">
-        <input type="text">
-        <i id="searchIcon" class="fa-solid fa-magnifying-glass" style="color: #2b4ba8;"></i>
+        <input id="search" type="text" placeholder="Search city">
+        <div class="suggestions"></div>
+        <i id="searchIcon" class="fa-solid fa-magnifying-glass"></i>
     </div>
     <div class="wrapper">
         <div class="header">
-
+            <div class="city-wrapper">
+                <i id="locationIcon" class="fa-solid fa-location-dot"></i>
+                <h1 id="city">Prague</h1>
+            </div>
+            <div class="date-wrapper">
+                <h3 id="day"></h3>
+                <p id="date"></p>
+            </div>
         </div>
         <div class="temp">
-
+            <div class="weather-status">
+                <img src="" alt="">
+                <p id="weather"></p>
+            </div>
+            <h1 id="temperature">23°C</h1>
         </div>
         <div class="info">
 
@@ -36,5 +48,8 @@
 
         </div>
     </div>
+
+    <script src="./script.js"></script>
+
 </body>
 </html>
