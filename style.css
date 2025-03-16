@@ -13,6 +13,8 @@
     --fs-temp: 8rem;
     --fs-day: 1.5rem;
     --fs-date: 1.1rem;
+    --fs-default-h1: 3rem;
+    --fs-default-p: 1.2rem;
 
     --fw-regular: 500;
     --fw-search: 600;
@@ -57,7 +59,6 @@ h1, h3, p {
     color: var(--clr-white);
 }
 
-
 .search-wrapper {
     position: relative;
     margin-top: 2rem;
@@ -65,11 +66,12 @@ h1, h3, p {
 #search {
     position: relative;
     z-index: 100;
-    padding: 1rem;
+    padding-block: 1rem;
+    padding-left: 1.25rem;
     padding-right: 2.75rem;
     width: max(280px, 24vw);
     background: var(--clr-white);
-    border: none;
+    border: none; 
     outline: none;
     border-radius: var(--br-input);
     font-size: var(--fs-search);
@@ -81,16 +83,22 @@ h1, h3, p {
         color: var(--clr-primary);
     }
 }
-#searchIcon {
+.search-button {
     position: absolute;
     top: 1rem;
     right: 1rem;
     z-index: 200;
+    border: none;
+    outline: none;
+    background: transparent;
+}
+#searchIcon {
     font-size: 1.5rem;
+    font-weight: 700;
     color: var(--clr-primary);
 }
 
-.wrapper {
+main {
     position: relative;
     z-index: 100;
     height: 82%;
@@ -99,6 +107,30 @@ h1, h3, p {
     border-right: 4px solid rgba(255, 255, 255, 0.2);
     border-radius: var(--br);
     box-shadow: 1rem 1rem 2rem rgba(0, 0, 0, 0.3);
+}
+
+.wrapper {
+    display: none;
+}
+
+.default-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    & h1 {
+        margin-bottom: -2rem;
+        font-size: var(--fs-default-h1);
+    }
+
+    & p {
+        margin-top: -4rem;
+        width: max(400px, 32vw);
+        font-size: var(--fs-default-p);
+        text-align: center;
+    }
 }
 
 .header {
@@ -152,7 +184,7 @@ h1, h3, p {
 .info {
     display: flex;
     justify-content: space-around;
-    margin-top: 3rem;
+    margin-top: 2rem;
 
     & div {
         display: flex;
