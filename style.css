@@ -4,15 +4,19 @@
     --clr-bg: linear-gradient(0deg, rgba(18,41,110,1) 15%, rgba(84,108,164,1) 50%, rgba(118,181,211,1) 85%);
     --clr-primary: #2b4ba8;
     --clr-white: #ffffff;
-    /*--clr-card: ;*/
 
     --ff: 'Montserrat', sans-serif;
 
     --fs-regular: 1rem;
-    --fw-regular: 500;
+    --fs-search: 1.3rem;
     --fs-city: 2.5rem;
+    --fs-temp: 8rem;
+    --fs-day: 1.5rem;
+    --fs-date: 1.1rem;
+
+    --fw-regular: 500;
+    --fw-search: 600;
     --fw-city: 800;
-    --fs-temp: 6rem;
 
     --br: 1rem;
     --br-input: 3rem;
@@ -68,11 +72,19 @@ h1, h3, p {
     border: none;
     outline: none;
     border-radius: var(--br-input);
+    font-size: var(--fs-search);
+    font-weight: var(--fw-search);
+
+    &::placeholder {
+        font-size: var(--fs-search);
+        font-weight: var(--fw-search);
+        color: var(--clr-primary);
+    }
 }
 #searchIcon {
     position: absolute;
-    top: 0.7rem;
-    right: 0.75rem;
+    top: 1rem;
+    right: 1rem;
     z-index: 200;
     font-size: 1.5rem;
     color: var(--clr-primary);
@@ -81,7 +93,7 @@ h1, h3, p {
 .wrapper {
     position: relative;
     z-index: 100;
-    height: 80%;
+    height: 82%;
     width: max(576px, 40%);
     background: var(--clr-bg);
     border-right: 4px solid rgba(255, 255, 255, 0.2);
@@ -93,8 +105,9 @@ h1, h3, p {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-inline: 2rem;
-    margin-block: 1rem;
+    margin-inline: 4rem;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
 }
 .city-wrapper {
     display: flex;
@@ -115,19 +128,46 @@ h1, h3, p {
     font-weight: var(--fw-city);
 }
 #day {
-    font-size: 1.5rem;
+    font-size: var(--fs-day);
 }
 #date {
-    font-size: 1.1rem;
+    font-size: var(--fs-date);
 }
 
 .temp {
-    margin-inline: 2rem;
-    background: var(--clr-card);
-    border-radius: var(--br); 
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 }
 #temperature {
     font-size: var(--fs-temp);
+}
+
+.weather-status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.info {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 3rem;
+
+    & div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    & p {
+        font-size: 1.2rem;
+    }
+}
+#wind, #droplet, #pressure {
+    font-size: 6rem;
+    color: var(--clr-white);
 }
 
 /*
