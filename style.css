@@ -137,7 +137,7 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-inline: 4rem;
+    margin-inline: 6rem;
     margin-top: 2rem;
     margin-bottom: 0.5rem;
 }
@@ -167,9 +167,12 @@ main {
 }
 
 .temp {
+    position: relative;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
+    margin-inline: 6rem;
+    margin-block: 3rem;
 }
 #temperature {
     font-size: var(--fs-temp);
@@ -179,12 +182,19 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    & img {
+        position: absolute;
+        top: -3.5rem;
+        left: -1rem;
+    }
 }
 
 .info {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     margin-top: 2rem;
+    margin-inline: 6rem;
 
     & div {
         display: flex;
