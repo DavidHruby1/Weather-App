@@ -40,7 +40,7 @@ function getTodaysDate() {
 }
 
 function convertToCelsius(temp) {
-    return Number((parseFloat(temp) - 273.15).toFixed(1));
+    return Number(Math.round(parseFloat(temp) - 273.15));
 }
 
 function convertToKm(wind) {
