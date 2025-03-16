@@ -111,6 +111,8 @@ main {
 
 .wrapper {
     display: none;
+    margin-inline: 4rem;
+    margin-block: 2rem;
 }
 
 .default-wrapper {
@@ -137,8 +139,6 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-inline: 6rem;
-    margin-top: 2rem;
     margin-bottom: 0.5rem;
 }
 .city-wrapper {
@@ -171,7 +171,6 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-inline: 6rem;
     margin-block: 3rem;
 }
 #temperature {
@@ -194,7 +193,6 @@ main {
     display: flex;
     justify-content: space-between;
     margin-top: 2rem;
-    margin-inline: 6rem;
 
     & div {
         display: flex;
