@@ -10,6 +10,7 @@ const humidityInfo = document.querySelector(".humidity-info p");
 const pressureInfo = document.querySelector(".pressure-info p");
 const wrapper = document.querySelector(".wrapper");
 const defaultWrapper = document.querySelector(".default-wrapper");
+const weatherImage = document.querySelector(".weather-status img");
 const weatherConditions = {
     "Sunny": "clear sky",
     "Cloudy": ["overcast clouds", "scattered clouds", "broken clouds"],
@@ -46,6 +47,44 @@ function convertToKm(wind) {
     return Number((wind * 3.6).toFixed(2));
 }
 
+function getWeatherCondition(currWeatherInfo) {
+    const weatherState = currWeatherInfo.weather[0].description;
+
+    Object.entries(weatherConditions).forEach(([condition, values]) => {
+        if (Array.isArray(values)) {
+            if (values.some(value => weatherState.includes(value))) {
+                setWeatherImage(condition);
+            }
+        }
+        else if (weatherState.includes(values)) {
+            setWeatherImage(condition);
+        }
+    });
+}
+
+function setWeatherImage(condition) {
+    switch(condition) {
+        case "Sunny":
+            weatherImage.src = "./images/sunny.png";
+            break;
+        case "Partly cloudy":
+            weatherImage.src = "./images/partly_cloudy.png";
+            break;
+        case "Cloudy":
+            weatherImage.src = "./images/cloudy.png";
+            break;
+        case "Rainy":
+            weatherImage.src = "./images/rainy.png";
+            break;
+        case "Stormy":
+            weatherImage.src = "./images/stormy.png";
+            break;
+        case "Snowy":
+            weatherImage.src = "./images/snowy.png";
+            break;
+    }
+}
+
 async function fetchData(endpoint, city) {
     const url = `https://api.openweathermap.org/data/2.5/${endpoint}?q=${city}&appid=${API_KEY}`;
 
@@ -71,12 +110,11 @@ async function parseCurrentWeatherData(city) {
     wind.textContent = `${windSpeed} km/h`;
     humidityInfo.textContent = `${humidity} %`;
     pressureInfo.textContent = `${pressure} hPa`;
+
+    getWeatherCondition(currWeatherInfo);
 }
-/*
-function getWeatherCondition() {
-    for ()
-}
-*/
+
+
 /*
 async function parseForecastWeatherData(city) {
 
