@@ -21,7 +21,7 @@ const weatherConditions = {
     "Stormy": ["thunderstorm"],
     "Snowy": ["light snow", "snow", "heavy snow"]
 };
-const cards = document.querySelectorAll(".forecast .card p");
+
 
 //
 // FUNCTIONS
@@ -37,20 +37,6 @@ function getTodaysDate() {
 
     document.getElementById("day").textContent = day;
     document.getElementById("date").textContent = `${today} ${month} ${year}`;
-}
-
-function generateForecastDates() {
-    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-    const date = new Date();
-    cards.forEach((card, day) => {
-        const forecastDate = new Date(date);
-        forecastDate.setDate(date.getDate() + day + 1);
-
-        const today = forecastDate.getDate();
-        const month = months[forecastDate.getMonth()];
-        card.textContent = `${today} ${month}`;
-    });
 }
 
 function convertToCelsius(temp) {
@@ -99,8 +85,8 @@ function setWeatherImage(condition) {
     }
 }
 
-async function fetchData(endpoint, city) {
-    const url = `https://api.openweathermap.org/data/2.5/${endpoint}?q=${city}&appid=${API_KEY}`;
+async function fetchTodaysData(city) {
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`;
 
     try {
         const response = await fetch(url);
@@ -112,38 +98,33 @@ async function fetchData(endpoint, city) {
 }
 
 async function parseCurrentWeatherData(city) {
-    const currWeatherInfo = await fetchData("weather", city);
+    const currWeatherInfo = await fetchTodaysData(city);
 
-    const temperature = convertToCelsius(currWeatherInfo.main.temp);
-    const windSpeed = convertToKm(currWeatherInfo.wind.speed);
-    const humidity = currWeatherInfo.main.humidity;
-    const pressure = currWeatherInfo.main.pressure;
+    if (currWeatherInfo) {
+        const temperature = convertToCelsius(currWeatherInfo.main.temp);
+        const windSpeed = convertToKm(currWeatherInfo.wind.speed);
+        const humidity = currWeatherInfo.main.humidity;
+        const pressure = currWeatherInfo.main.pressure;
 
-    cityName.textContent = city;
-    temp.textContent = `${temperature}°C`;
-    wind.textContent = `${windSpeed} km/h`;
-    humidityInfo.textContent = `${humidity} %`;
-    pressureInfo.textContent = `${pressure} hPa`;
+        cityName.textContent = city;
+        temp.textContent = `${temperature}°C`;
+        wind.textContent = `${windSpeed} km/h`;
+        humidityInfo.textContent = `${humidity} %`;
+        pressureInfo.textContent = `${pressure} hPa`;
 
-    getWeatherCondition(currWeatherInfo);
+        getWeatherCondition(currWeatherInfo);
+    }
 }
-
-/*
-async function parseForecastWeatherData(city) {
-
-}
-*/
 
 
 //
 // EVENTS
 //
 getTodaysDate();
-generateForecastDates();
 
 searchBtn.addEventListener("click", () => {
     if (input.value.trim() != "") {
-        wrapper.style.display = "block";
+        wrapper.style.display = "flex";
         defaultWrapper.style.display = "none";
         parseCurrentWeatherData(input.value);
         input.value = "";
@@ -153,7 +134,7 @@ searchBtn.addEventListener("click", () => {
 
 input.addEventListener("keydown", (e) => {
     if (e.key == "Enter" && input.value.trim() != "") {
-        wrapper.style.display = "block";
+        wrapper.style.display = "flex";
         defaultWrapper.style.display = "none";
         parseCurrentWeatherData(input.value);
         input.value = "";
