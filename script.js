@@ -1,6 +1,8 @@
 //
 // VARIABLES
 //
+const API_KEY = "14ae22d50996a7279216be0e62040a03";
+
 const input = document.getElementById("search");
 const searchBtn = document.querySelector(".search-button");
 const cityName = document.getElementById("city");
@@ -19,9 +21,7 @@ const weatherConditions = {
     "Stormy": ["thunderstorm"],
     "Snowy": ["light snow", "snow", "heavy snow"]
 };
-
-
-const API_KEY = "14ae22d50996a7279216be0e62040a03";
+const cards = document.querySelectorAll(".forecast .card p");
 
 //
 // FUNCTIONS
@@ -37,6 +37,20 @@ function getTodaysDate() {
 
     document.getElementById("day").textContent = day;
     document.getElementById("date").textContent = `${today} ${month} ${year}`;
+}
+
+function generateForecastDates() {
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+    const date = new Date();
+    cards.forEach((card, day) => {
+        const forecastDate = new Date(date);
+        forecastDate.setDate(date.getDate() + day + 1);
+
+        const today = forecastDate.getDate();
+        const month = months[forecastDate.getMonth()];
+        card.textContent = `${today} ${month}`;
+    });
 }
 
 function convertToCelsius(temp) {
@@ -114,7 +128,6 @@ async function parseCurrentWeatherData(city) {
     getWeatherCondition(currWeatherInfo);
 }
 
-
 /*
 async function parseForecastWeatherData(city) {
 
@@ -126,6 +139,7 @@ async function parseForecastWeatherData(city) {
 // EVENTS
 //
 getTodaysDate();
+generateForecastDates();
 
 searchBtn.addEventListener("click", () => {
     if (input.value.trim() != "") {
