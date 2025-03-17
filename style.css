@@ -171,7 +171,7 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-block: 3rem;
+    margin-block: 2rem;
 }
 #temperature {
     font-size: var(--fs-temp);
@@ -192,7 +192,6 @@ main {
 .info {
     display: flex;
     justify-content: space-between;
-    margin-top: 2rem;
 
     & div {
         display: flex;
@@ -208,6 +207,21 @@ main {
 #wind, #droplet, #pressure {
     font-size: 6rem;
     color: var(--clr-white);
+}
+
+.forecast {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    overflow-x: auto;
+}
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    min-width: 120px;
+    height: 160px;
 }
 
 /*
