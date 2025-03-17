@@ -8,13 +8,13 @@
     --ff: 'Montserrat', sans-serif;
 
     --fs-regular: 1rem;
-    --fs-search: 1.3rem;
-    --fs-city: 2.5rem;
-    --fs-temp: 8rem;
-    --fs-day: 1.5rem;
-    --fs-date: 1.1rem;
-    --fs-default-h1: 3rem;
-    --fs-default-p: 1.2rem;
+    --fs-search: clamp(1rem, 2.5vw, 1.3rem);
+    --fs-city: clamp(1.5rem, 4vw, 2.5rem);
+    --fs-temp: clamp(4rem, 10vw, 8rem);
+    --fs-day: clamp(1rem, 2.5vw, 1.5rem);
+    --fs-date: clamp(0.9rem, 2vw, 1.1rem);
+    --fs-default-h1: clamp(1.5rem, 5vw, 3rem);
+    --fs-default-p: clamp(1rem, 2.5vw, 1.2rem);
 
     --fw-regular: 500;
     --fw-search: 600;
@@ -32,6 +32,7 @@
 
 html {
     font-family: var(--ff);
+    font-size: 16px;
 }
 
 body {
@@ -40,19 +41,25 @@ body {
     justify-content: flex-start;
     align-items: center;
     gap: 2rem;
-    height: 100vh;
-    width: 100vw;
+    min-height: 100vh;
+    width: 100%;
     background-image: url('./images/city-skyline.png');
     background-size: cover;
     background-position: center;
+    overflow-x: hidden;
+    padding-bottom: 2rem; /* Mezera dole pro pozadí */
 }
+
 body::before {
     content: "";
     position: absolute;
-    height: 100vh;
-    width: 100vw;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
     background: rgba(0, 0, 0, 0.15);
     backdrop-filter: blur(15px);
+    z-index: 1;
 }
 
 h1, h3, p {
@@ -62,36 +69,38 @@ h1, h3, p {
 .search-wrapper {
     position: relative;
     margin-top: 2rem;
-}
-#search {
-    position: relative;
+    width: minmax(90%, 280px);
     z-index: 100;
-    padding-block: 1rem;
-    padding-left: 1.25rem;
-    padding-right: 2.75rem;
-    width: max(280px, 24vw);
+}
+
+#search {
+    width: 100%;
+    padding: 1rem 2.75rem 1rem 1.25rem;
     background: var(--clr-white);
-    border: none; 
+    border: none;
     outline: none;
     border-radius: var(--br-input);
     font-size: var(--fs-search);
     font-weight: var(--fw-search);
-
-    &::placeholder {
-        font-size: var(--fs-search);
-        font-weight: var(--fw-search);
-        color: var(--clr-primary);
-    }
 }
+
+#search::placeholder {
+    font-size: var(--fs-search);
+    font-weight: var(--fw-search);
+    color: var(--clr-primary);
+}
+
 .search-button {
     position: absolute;
-    top: 1rem;
+    top: 50%;
     right: 1rem;
-    z-index: 200;
+    transform: translateY(-50%);
     border: none;
     outline: none;
     background: transparent;
+    cursor: pointer;
 }
+
 #searchIcon {
     font-size: 1.5rem;
     font-weight: 700;
@@ -101,133 +110,156 @@ h1, h3, p {
 main {
     position: relative;
     z-index: 100;
-    width: max(576px, 40%);
+    width: clamp(300px, 90%, 576px);
     background: var(--clr-bg);
     border-right: 4px solid rgba(255, 255, 255, 0.2);
     border-radius: var(--br);
     box-shadow: 1rem 1rem 2rem rgba(0, 0, 0, 0.3);
+    margin-bottom: 2rem; /* Mezera pod main pro pozadí */
 }
 
 .wrapper {
     display: none;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    margin-inline: 4rem;
-    margin-block: 2rem;
+    padding: 2rem;
 }
 
 .default-wrapper {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    height: 100%;
+    padding: 2rem;
+    text-align: center;
+}
 
-    & h1 {
-        margin-bottom: -2rem;
-        font-size: var(--fs-default-h1);
-    }
+.default-wrapper h1 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: var(--fs-default-h1);
+}
 
-    & p {
-        margin-top: -4rem;
-        width: max(400px, 32vw);
-        font-size: var(--fs-default-p);
-        text-align: center;
-    }
+.default-wrapper img {
+    max-width: 100%;
+    height: auto;
 }
 
 .header {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.5rem;
-}
-.city-wrapper {
-    display: flex;
+    margin-bottom: 1rem;
     gap: 1rem;
 }
+
+.city-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 #locationIcon {
-    margin-top: 0.6rem;
     font-size: 1.75rem;
     color: var(--clr-white);
 }
+
 .date-wrapper {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
+    text-align: right;
 }
+
 #city {
     font-size: var(--fs-city);
     font-weight: var(--fw-city);
 }
+
 #day {
     font-size: var(--fs-day);
 }
+
 #date {
     font-size: var(--fs-date);
 }
 
 .temp {
-    position: relative;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    margin-block: 2rem;
-}
-#temperature {
-    font-size: var(--fs-temp);
+    margin: 2rem 0;
+    gap: 1rem;
 }
 
 .weather-status {
+    flex: 1;
+    min-width: 150px;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
+}
 
-    & img {
-        position: absolute;
-        top: -3.5rem;
-        left: -1rem;
-    }
+.weather-status img {
+    max-width: 100%;
+    height: auto;
+}
+
+#temperature {
+    font-size: var(--fs-temp);
+    flex: 1;
+    text-align: right;
 }
 
 .info {
-    display: flex;
-    justify-content: space-between;
-
-    & div {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    & p {
-        font-size: 1.2rem;
-    }
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1rem;
+    padding: 1rem 0;
 }
+
+.info div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.info p {
+    font-size: var(--fs-default-p);
+}
+
 #wind, #droplet, #pressure {
-    font-size: 6rem;
+    font-size: clamp(3rem, 8vw, 6rem);
     color: var(--clr-white);
 }
 
-.forecast {
-    display: flex;
-    gap: 0.5rem;
-    margin-top: 2rem;
-    overflow-x: auto;
-}
-.card {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    min-width: 120px;
-    height: 160px;
-}
+/* Media Queries */
+@media (max-width: 480px) {
+    .search-wrapper {
+        margin-top: 1rem;
+    }
 
-/*
-@media (max-wdith: 576px) {
-    // Make the card all over the display
+    .wrapper, .default-wrapper {
+        padding: 1rem;
+    }
+
+    .temp {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .weather-status {
+        min-width: 100px;
+    }
+
+    .weather-status img {
+        max-width: 200px; /* Menší obrázek na mobilu */
+    }
+
+    #temperature {
+        text-align: center;
+    }
 }
-*/
